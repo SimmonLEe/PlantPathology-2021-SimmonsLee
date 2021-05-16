@@ -67,7 +67,7 @@ for epoch in range(start_epoch, config.train_parameters["epoch"]):
     avg_loss = train_loss_total / (step + 1)
     writer.add_scalar("train_epoch_loss", avg_loss, global_step=epoch)
     writer.add_scalar("lr", schedule.get_last_lr()[0], epoch)
-    print("\n epoch:{0} train_loss:{1:.2f} lr:{2:.5f} cost_time:{3:.5f}".format(epoch, avg_loss, schedule.get_last_lr()[0], time.time() - start_time))
+    print("\nepoch:{0} train_loss:{1:.5f} lr:{2:.5f} cost_time:{3:.5f}".format(epoch, avg_loss, schedule.get_last_lr()[0], time.time() - start_time))
     print("IO_TIME:{:.5f}  PROCESS_TIME:{:.5f} BACKWARD_TIME:{:.5f}".format(IO_TIME, PROCESS_TIME, BACKWARD_TIME))
     # 调整学习率
     schedule.step()
@@ -80,10 +80,11 @@ for epoch in range(start_epoch, config.train_parameters["epoch"]):
             "schedule": schedule
         }
         best_loss = avg_loss
+        save_dir_path = config.train_parameters["save_path"] + "{:.4f}".format(best_loss.item()) + ".pth"
         save_dir = config.train_parameters["save_path"]
-        if os.path.exists(save_dir):
-            save_path = save_dir + str(best_loss) + ".pth"
-            torch.save(checkpoint, save_path)
+        while not os.path.exists(save_dir):
+            os.mkdir(save_dir)
+        torch.save(checkpoint, save_dir_path)
 
 
 

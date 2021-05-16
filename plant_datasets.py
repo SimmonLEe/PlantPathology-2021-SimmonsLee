@@ -47,7 +47,6 @@ class MyData(Dataset):
                     target[label] = 1.0
                 image_path = self.images_dir + "/" + x
                 self.datasets.append([image_path, target])
-                # #                 print(x, y)
 
     def __getitem__(self, item):
         img_path, label = self.datasets[item][0], self.datasets[item][1]

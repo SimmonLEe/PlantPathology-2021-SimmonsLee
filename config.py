@@ -26,12 +26,20 @@ class Config():
             ),
         )
 
-        self.Pre_Trim_Image_size = 400
-        self.Input_Image_Size = 224
+        self.scale = 1.5
+        # self.Pre_Trim_Image_Height_Size = [200, 400, 600, 800]
+        self.Pre_Trim_Image_Height_Size = 200
+        # self.Pre_Trim_Image_Width_Size = [int(1.5 * x) for x in self.Pre_Trim_Image_Height_Size]
+        self.Pre_Trim_Image_Width_Size = int(200 * self.scale)
+
+        # self.Input_Image_Height_Size = [150, 300, 450, 600]
+        self.Input_Image_Height_Size = 150
+        # self.Input_Image_Width_Size = [int(1.5 * x) for x in self.Input_Image_Height_Size]
+        self.Input_Image_Width_Size = int(150 * self.scale)
 
 
         self.train_parameters = {
-            "epoch": 200,
+            "epoch": 300,
             "batch": 64,
             "lr": 0.001,
             "save_path": "./checkpoints/",
@@ -39,9 +47,9 @@ class Config():
         }
 
         self.train_transforms = transforms.Compose([
-            transforms.Resize(self.Pre_Trim_Image_size),
+            transforms.Resize((self.Pre_Trim_Image_Height_Size, self.Pre_Trim_Image_Width_Size)),
 
-            transforms.RandomCrop(self.Input_Image_Size),
+            transforms.RandomCrop((self.Input_Image_Height_Size, self.Input_Image_Width_Size)),
 
             # transforms.ColorJitter(),
 
