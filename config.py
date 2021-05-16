@@ -34,7 +34,7 @@ class Config():
             "epoch": 200,
             "batch": 64,
             "lr": 0.001,
-            "save_path": "",
+            "save_path": "./checkpoints/",
             "RESUME": False,
         }
 
