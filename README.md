@@ -1,6 +1,6 @@
 # PlantPathology-2021
 Description:Kaggle_Plant_Pathology (CV Multi_Label_Classification)<br/>
-Device: 1X2080<br/>
+Device: 1X2080
 # Method:
 1.DataAugmentation:{<br/>
 

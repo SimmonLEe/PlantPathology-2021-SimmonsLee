@@ -46,7 +46,12 @@ class MyData(Dataset):
                     label = [self.classes[str(m)] for m in labels]
                     target[label] = 1.0
                 image_path = self.images_dir + "/" + x
+                target = self.label_smooth(target)
                 self.datasets.append([image_path, target])
+
+    def label_smooth(self, target, epsilon=0.05):
+        target = target * (1 - epsilon) + epsilon / target.size(0)
+        return target
 
     def __getitem__(self, item):
         img_path, label = self.datasets[item][0], self.datasets[item][1]
