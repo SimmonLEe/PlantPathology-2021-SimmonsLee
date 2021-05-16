@@ -32,8 +32,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=config.train_parameters["lr"
 schedule = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, eta_min=0, T_0=config.train_parameters["epoch"])
 
 # 表示量
-best_acc = 0
-total_loss = 2
+best_loss = 0.2
 # 开始训练
 print("start training")
 for epoch in range(start_epoch, config.train_parameters["epoch"]):
@@ -73,18 +72,17 @@ for epoch in range(start_epoch, config.train_parameters["epoch"]):
     # 调整学习率
     schedule.step()
     # save checkpoint
-    if avg_loss < total_loss:
+    if avg_loss < best_loss:
         checkpoint = {
             "weight": model.state_dict(),
             "start_epoch": 0,
             "optimizer": optimizer,
             "schedule": schedule
         }
-        best_acc = avg_loss
         best_loss = avg_loss
         save_dir = config.train_parameters["save_path"]
         if os.path.exists(save_dir):
-            save_path = save_dir + str(best_loss)
+            save_path = save_dir + str(best_loss) + ".pth"
             torch.save(checkpoint, save_path)
 
 

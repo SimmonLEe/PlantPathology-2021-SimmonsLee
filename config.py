@@ -16,7 +16,7 @@ class Config():
         print("run on {}".format(self.Device))
 
         self.model = torchvision.models.resnet50(pretrained=True).to(self.Device)
-        self.Classes = 6
+        self.Classes = 5
 
         # modify last layer
         self.model.fc = nn.Sequential(

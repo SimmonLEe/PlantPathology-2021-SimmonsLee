@@ -19,12 +19,11 @@ class MyData(Dataset):
         self.Header = None
         self.get_classes()
         self.classes = {
-            "healthy": 0,
-            "scab": 1,
-            "complex": 2,
-            "rust": 3,
-            "frog_eye_leaf_spot": 4,
-            'powdery_mildew': 5
+            "scab": 0,
+            "complex": 1,
+            "rust": 2,
+            "frog_eye_leaf_spot": 3,
+            'powdery_mildew': 4
         }
         self.get_datas()
 
@@ -35,24 +34,17 @@ class MyData(Dataset):
         data = pd.read_csv(self.csv_path)
         self.Header = [x for x in data]
         print("Headers:{}".format(self.Header))
-        # if 'labels' in self.Header:
-        #     labels = data.labels
-        # self.classes = {}
-        # for x in labels:
-        #     if x in self.classes:
-        #         continue
-        #     self.classes[str(x)] = len(self.classes)
-        # print("classes:{}".format(self.classes))
 
     # 将图片与标签对应起来 用于__getitem__函数调用
     def get_datas(self):
         Data = pd.read_csv(self.csv_path)
         if 'image' in self.Header and 'labels' in self.Header:
             for x, y in zip(Data.image, Data.labels):
+                target = torch.zeros(5)
                 labels = y.split(" ")
-                label = [self.classes[str(m)] for m in labels]
-                target = torch.zeros(6)
-                target[label] = 1.0
+                if "healthy" not in labels:
+                    label = [self.classes[str(m)] for m in labels]
+                    target[label] = 1.0
                 image_path = self.images_dir + "/" + x
                 self.datasets.append([image_path, target])
                 # #                 print(x, y)
