@@ -2,7 +2,7 @@
 Description:Kaggle_Plant_Pathology (CV Multi_Label_Classification)<br/>
 Device: 1X2080
 # Method:
-1.DataAugmentation:{<br/>
+1.DataAugmentation:{
 
 
     1.Resize
@@ -22,7 +22,7 @@ Device: 1X2080
 
 3.Training{
 
-    1.optimizer:Adaam
+    1.optimizer:Adam
     2.schedule: CosineAnnealingWarmRestarts
     3.Init_lr : 0.01
     4.epoch : 200
@@ -30,6 +30,12 @@ Device: 1X2080
     6.loss_function : BCEWithLogitsLoss
   }
 	
+4.trick{
+
+    1.label_smoothing,
+    2.Image Pyramid,
+    
+ }
 	
 # Score:
 
