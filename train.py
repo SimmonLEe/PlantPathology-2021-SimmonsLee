@@ -36,11 +36,11 @@ best_loss = 0.2
 # 开始训练
 print("start training")
 for epoch in range(start_epoch, config.train_parameters["epoch"]):
+    model.train()
     # 70个epoch后开始训练所有的层
-    if epoch == 70:
+    if epoch == 10:
         for param in model.parameters():
             param.requires_grad = True
-    model.train()
     start_time = time.time()
     train_loss_total = 0
     file_time = time.time()
