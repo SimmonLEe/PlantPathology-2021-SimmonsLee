@@ -11,6 +11,7 @@ Device: 1X2080
     4.RandomHorizontalFlip(0.5)
     5.RandomRoatation
     6.Normalize
+    7.ColorJitter(0.2, 0.2, 0.2)
 
 
    }<br/>
@@ -25,7 +26,7 @@ Device: 1X2080
     1.optimizer:Adam
     2.schedule: CosineAnnealingWarmRestarts
     3.Init_lr : 0.01
-    4.epoch : 200
+    4.epoch : 300
     5.batchsize : 64
     6.loss_function : BCEWithLogitsLoss
   }
@@ -33,11 +34,14 @@ Device: 1X2080
 4.trick{
 
     1.label_smoothing,
-    2.Image Pyramid,
+    
     
  }
 	
 # Score:
-
+| Model | ImageSize(HXW) | Score | Rank |
+| --- | --- | --- | --- |
+| resnet50 | 150 x 224 | 0.738 | 273/569 |
+| resnet50 | 300 x 450 | training | training |
 # Here is my way to label it:
 
