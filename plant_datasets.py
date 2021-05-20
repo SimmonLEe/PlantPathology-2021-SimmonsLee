@@ -34,7 +34,6 @@ class MyData(Dataset):
         data = pd.read_csv(self.csv_path)
         self.Header = [x for x in data]
         print("Headers:{}".format(self.Header))
-
     # 将图片与标签对应起来 用于__getitem__函数调用
     def get_datas(self):
         Data = pd.read_csv(self.csv_path)

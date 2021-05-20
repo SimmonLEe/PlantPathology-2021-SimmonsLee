@@ -41,7 +41,7 @@ Device: 1X2080
 # Score:
 | Model | ImageSize(HXW) | Score | Rank |
 | --- | --- | --- | --- |
-| resnet50 | 150 x 224 | 0.738 | 273/569 |
-| resnet50 | 300 x 450 | training | training |
+| resnet50 | 150 x 224 | 0.738 |  %50  |
+| efficientB4 | 300 x 520 | 0.841 |  %4 |
 # Here is my way to label it:
 

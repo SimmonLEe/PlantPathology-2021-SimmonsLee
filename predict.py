@@ -18,6 +18,7 @@ def load_weight(config, model):
     checkpoint = torch.load(config.model_weight_save_path, map_location=config.Device)
     model.load_state_dict(checkpoint["weight"])
     model.eval()
+    print("load weight complete")
     return model
 
 

@@ -2,6 +2,7 @@ from torchvision import transforms
 import torchvision
 import torch
 import torch.nn as nn
+import os
 # 参数信息
 
 
@@ -9,10 +10,13 @@ class Config():
     def __init__(self):
         self.Root = "./"
         self.Train_Csv_File_path = self.Root + "planet/train.csv"
-        self.Train_Images_Dir = self.Root + "planet/train_images/"
+        self.Train_Images_Dir = self.Root + "planet/400_600_Images/"
         self.Test_Images_Dir = self. Root + "planet/test_images/"
         self.SAMPLE_SUBMISSION_FILE = ""
-        self.model_weight_save_path = ""
+
+        self.OUTPUT_PATH = './'
+        self.SUBMISSION_FILE = os.path.join(self.OUTPUT_PATH, 'submission.csv')
+        self.model_weight_save_path = "./checkpoints/300_450.pth"
 
         self.GPU = True if torch.cuda.is_available() else False
         self.Device = torch.device("cuda:0") if self.GPU else torch.device("cpu")
@@ -40,21 +44,20 @@ class Config():
         # self.Input_Image_Width_Size = [int(1.5 * x) for x in self.Input_Image_Height_Size]
         self.Input_Image_Width_Size = int(self.Input_Image_Height_Size * self.scale)
 
-
         self.train_parameters = {
-            "epoch": 300,
-            "batch": 16,
-            "lr": 0.01,
+            "epoch": 200,
+            "batch": 25,
+            "lr": 0.003,
             "save_path": "./checkpoints/",
             "RESUME": False,
         }
 
         self.train_transforms = transforms.Compose([
-            transforms.Resize((self.Pre_Trim_Image_Height_Size, self.Pre_Trim_Image_Width_Size)),
+            # transforms.Resize((self.Pre_Trim_Image_Height_Size, self.Pre_Trim_Image_Width_Size)),
 
             transforms.RandomCrop((self.Input_Image_Height_Size, self.Input_Image_Width_Size)),
 
-            # transforms.ColorJitter(),
+            transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
 
             transforms.RandomVerticalFlip(0.5),
 
